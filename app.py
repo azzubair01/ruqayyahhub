@@ -50,7 +50,7 @@ if descrepancy_file is not None and zlp_file is not None:
         right_on='SAPITM',
         how='left'
     ).drop_duplicates(subset=['Material'])
-    st.dataframe(combined_df.set_index('Material'), use_container_width=True)
+    st.dataframe(combined_df.set_index('Material'), width='stretch')
 
 else:
     st.warning('Please upload both files')
