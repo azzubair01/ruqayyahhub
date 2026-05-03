@@ -14,8 +14,8 @@ with col1:
         df_warehouse_filtered = df_warehouse[df_warehouse['Storage Location']==2010]
         cols_to_keep_warehouse = ['Material', 'Storage Location', 'Unrestricted']
 
-    with st.expander('View Warehouse Data', expanded=False):
-        st.dataframe(df_warehouse_filtered, hide_index=True)
+        with st.expander('View Warehouse Data', expanded=False):
+            st.dataframe(df_warehouse_filtered, hide_index=True)
 
 
 with col2:
@@ -85,16 +85,17 @@ if warehouse_file is not None and zlp_file is not None:
                 st.dataframe(df_descrepancy, hide_index=True)
 
     with col2:
-        warehouse_material = set(df_combined['Material'])
-        discrepancy_material = set(df_descrepancy['Material'])
-        duplicated_material = set(df_descrepancy[df_descrepancy['Is Duplicated Material']==True]['Material'])
+        if warehouse_file and descrepancy_file:
+            warehouse_material = set(df_combined['Material'])
+            discrepancy_material = set(df_descrepancy['Material'])
+            duplicated_material = set(df_descrepancy[df_descrepancy['Is Duplicated Material']==True]['Material'])
 
-        unknown_material = discrepancy_material - warehouse_material
-        st.info(f'Part Number missing in warehouse: {len(unknown_material)}')
-        st.write(unknown_material)
+            unknown_material = discrepancy_material - warehouse_material
+            st.info(f'Part Number missing in warehouse: {len(unknown_material)}')
+            st.write(unknown_material)
 
-        st.info(f'Part Number duplicated: {len(duplicated_material)}/{len(discrepancy_material)}')
-        st.write(duplicated_material)
+            st.info(f'Part Number duplicated: {len(duplicated_material)}/{len(discrepancy_material)}')
+            st.write(duplicated_material)
 
 else:
     st.warning('Please upload both files')
