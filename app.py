@@ -10,7 +10,7 @@ with col1:
     warehouse_file = st.file_uploader(label='Upload Warehouse file', key='file_uploader_warehouse',
                                 type=['xlsx', 'xls'], accept_multiple_files=False)
     if warehouse_file is not None:
-        df_warehouse = pd.read_excel(warehouse_file)
+        df_warehouse = pd.read_excel(warehouse_file, dtype={'Material': str})
         df_warehouse_filtered = df_warehouse[df_warehouse['Storage Location']==2010]
         cols_to_keep_warehouse = ['Material', 'Storage Location', 'Unrestricted']
 
@@ -22,7 +22,7 @@ with col2:
     zlp_file = st.file_uploader(label='Upload ZP file', key='file_uploader_zlp',
                                 type=['xlsx', 'xls'], accept_multiple_files=False)
     if zlp_file is not None:
-        df_zlp = pd.read_excel(zlp_file)
+        df_zlp = pd.read_excel(zlp_file, dtype={'SAPITM': str, '@ITEM': str})
         cols_to_keep_zlp = ['@ITEM', 'SAPITM', 'IMDESC', 'LBSOH']
 
         
